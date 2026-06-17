@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/lucaspdude/capy-copy/compare/v0.1.0...v0.1.1) (2026-06-17)
+
+
+### Bug Fixes
+
+* trigger release workflow on published releases ([1fe655d](https://github.com/lucaspdude/capy-copy/commit/1fe655d53257ef9069f77e8451f3e89e73018d84))
+* trigger release workflow on published releases and allow manual dispatch ([0f813c0](https://github.com/lucaspdude/capy-copy/commit/0f813c0858afb1df8538a3ba44ddace317f00556))
+
 ## [0.1.0](https://github.com/lucaspdude/capy-copy/compare/v0.0.7...v0.1.0) (2026-06-17)
 
 
