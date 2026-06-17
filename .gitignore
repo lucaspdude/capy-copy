@@ -1,0 +1,12 @@
+.build/
+*.dmg
+capy-copy.app/
+.DS_Store
+*.xcuserstate
+*.xcodeproj
+*.swp
+*.swo
+
+.env*
+docs/
+docs/*

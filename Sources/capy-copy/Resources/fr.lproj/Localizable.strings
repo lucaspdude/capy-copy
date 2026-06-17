@@ -1,0 +1,240 @@
+/* App name shown in the menubar popover header. */
+"app.name" = "Capy Copy";
+
+/* Label for URL content type. */
+"content.url" = "URL";
+
+/* Label for code content type. */
+"content.code" = "Code";
+
+/* Label for date content type. */
+"content.date" = "Date";
+
+/* Label for address content type. */
+"content.address" = "Adresse";
+
+/* Label for plain text content type. */
+"content.text" = "Texte";
+
+/* Label for image content type. */
+"content.image" = "Image";
+
+/* Shown when the fm CLI fails to run. %@ is the underlying error message. */
+"error.fm.execution" = "Échec de l’exécution de Foundation Models : %@";
+
+/* Shown when the model returns an error. %@ is the error message. */
+"error.fm.model" = "Erreur du modèle : %@";
+
+/* Shown when the model returns nothing. */
+"error.fm.empty" = "Le modèle a renvoyé une réponse vide.";
+
+/* Shown when analysis times out. */
+"error.fm.timeout" = "L’analyse a expiré. Le modèle est peut-être occupé.";
+
+/* Shown when analysis is cancelled by the user. */
+"error.fm.cancelled" = "L’analyse a été annulée.";
+
+/* Title shown when no clipboard items have been analyzed yet. */
+"empty.title" = "Copiez quelque chose pour commencer";
+
+/* Subtitle shown in the empty state. */
+"empty.subtitle" = "Capy analyse les liens, le code, les dates, les adresses et le texte avec Apple Foundation Models.";
+
+/* Shown while an item is being analyzed. */
+"card.analyzing" = "Analyse en cours...";
+
+/* Button to cancel an in-progress analysis. */
+"card.cancel" = "Annuler";
+
+/* Button to copy the analysis result. */
+"card.copy" = "Copier";
+
+/* Button label after the result has been copied. */
+"card.copied" = "Copié";
+
+/* Button to copy the original clipboard text from a history item. */
+"card.copyOriginal" = "Copier l’original";
+
+/* Button label after the original clipboard text has been copied. */
+"card.copiedOriginal" = "Original copié";
+
+/* Button to create a calendar event from a detected date. */
+"action.addToCalendar" = "Ajouter au Calendrier";
+
+/* Button to create a reminder from a detected date. */
+"action.createReminder" = "Créer un Rappel";
+
+/* Status shown after a calendar event has been created from a detected date. */
+"action.createdCalendar" = "Ajouté au Calendrier";
+
+/* Status shown after a reminder has been created from a detected date. */
+"action.createdReminder" = "Rappel Créé";
+
+/* Button to open an address in the chosen maps app. %@ is the maps provider name. */
+"action.openInMaps" = "Ouvrir dans %@";
+
+/* Button to clear the analysis history. */
+"footer.clearHistory" = "Effacer l’Historique";
+
+/* Title of the settings sheet. */
+"settings.title" = "Réglages";
+
+/* Section title for maps settings. */
+"settings.maps" = "Plans";
+
+/* Label for the default maps app picker. */
+"settings.defaultMapsApp" = "App Plans par défaut";
+
+/* Section title for behavior settings. */
+"settings.behavior" = "Comportement";
+
+/* Toggle to enable automatic clipboard analysis. */
+"settings.autoAnalyze" = "Analyser le presse-papiers automatiquement";
+
+/* Section title for keyboard shortcuts. */
+"settings.shortcuts" = "Raccourcis";
+
+/* Label for the open popover shortcut. */
+"settings.openPopover" = "Ouvrir le sélecteur";
+
+/* Button to reset the global shortcut to its default value. */
+"settings.resetShortcut" = "Réinitialiser";
+
+/* Title shown in the picker when the history is empty. */
+"picker.emptyTitle" = "Aucun élément copié";
+
+/* Subtitle shown in the picker when the history is empty. */
+"picker.emptySubtitle" = "Copiez quelque chose pour le voir apparaître ici.";
+
+/* Placeholder text for the picker search bar. */
+/* Search bar placeholder indicating content and Mac-name search. */
+"picker.searchPlaceholder" = "Search history or Mac name";
+
+/* Device scope menu label for all devices. */
+"deviceScope.all" = "All Macs";
+
+/* Device scope menu label for the current device. */
+
+/* Label shown for the current Mac on a history item. */
+"device.thisMac" = "This Mac";
+"deviceScope.thisDevice" = "This Mac";
+
+/* History tab title in the picker. */
+"picker.tab.history" = "Historique";
+
+/* Settings tab title in the picker. */
+"picker.tab.settings" = "Réglages";
+
+/* Permissions tab title in the picker. */
+"picker.tab.permissions" = "Autorisations";
+
+/* Hint shown in the picker preview pane to paste the selected item. */
+"picker.doubleClickToPaste" = "Double-cliquez pour coller";
+
+/* Button to close the settings sheet. */
+"settings.done" = "Terminé";
+
+/* Notification title when analysis completes. %@ is the content type name. */
+"notification.analyzed" = "Capy Copy : %@ analysé";
+
+/* Notification title when analysis fails. */
+"notification.failed" = "Capy Copy : Échec de l’analyse";
+
+/* Button to quit the app from the footer. */
+"footer.quit" = "Quitter";
+
+/* Title of the first-launch onboarding screen. */
+"onboarding.title" = "Bienvenue dans Capy Copy";
+
+/* Subtitle explaining why permissions are needed. */
+"onboarding.subtitle" = "Quelques autorisations sont nécessaires pour coller et créer des événements d'agenda.";
+
+/* Title for the paste permission step. */
+"onboarding.pasteTitle" = "Coller dans les apps";
+
+/* Description for the paste permission step. */
+"onboarding.pasteDescription" = "Permet à Capy Copy de coller les éléments sélectionnés dans l'app active.";
+
+/* Title for the calendar permission step. */
+"onboarding.calendarTitle" = "Calendrier";
+
+/* Description for the calendar permission step. */
+"onboarding.calendarDescription" = "Créez des événements à partir des dates trouvées dans le presse-papiers.";
+
+/* Title for the reminders permission step. */
+"onboarding.remindersTitle" = "Rappels";
+
+/* Description for the reminders permission step. */
+"onboarding.remindersDescription" = "Créez des rappels à partir des dates trouvées dans le presse-papiers.";
+
+/* Button to request a permission. */
+"onboarding.grant" = "Autoriser";
+
+/* Button to open System Settings for a permission. */
+"onboarding.openSettings" = "Ouvrir les réglages";
+
+/* Status shown when a permission has been granted. */
+"onboarding.granted" = "Autorisé";
+
+/* Button to finish onboarding. */
+"onboarding.continue" = "Continuer";
+
+
+
+
+/* Theme name for the macOS liquid glass style. */
+"theme.liquidGlass" = "Liquid Glass";
+
+/* Theme name for the terminal style. */
+"theme.terminal" = "Terminal";
+
+/* Theme name for the Claude Code style. */
+"theme.claudeCode" = "Claude Code";
+
+/* All items tab title in the picker. */
+"picker.tab.all" = "All";
+
+/* Favorites tab title in the picker. */
+"picker.tab.favorites" = "Favorites";
+
+/* Settings tab title in the picker. */
+"picker.tab.settings" = "Settings";
+
+/* Permissions tab title in the picker. */
+"picker.tab.permissions" = "Permissions";
+
+/* Label for video content type. */
+"content.video" = "Video";
+
+/* Title shown in the favorites empty state. */
+"empty.favoritesTitle" = "No favorites yet";
+
+/* Subtitle shown in the favorites empty state. */
+"empty.favoritesSubtitle" = "Click the star on any item to add it to your favorites.";
+
+/* Section title for iCloud Sync settings. */
+"settings.icloudSync" = "iCloud Sync";
+
+/* Toggle to enable iCloud clipboard sync. */
+"settings.syncEnabled" = "Sync clipboard history";
+
+/* Label for editable device name field. */
+"settings.deviceName" = "Device name";
+
+/* Toggle to clear history on all synced devices. */
+"settings.clearHistorySyncsToAllDevices" = "Clear history on all Macs";
+
+/* Footer explaining iCloud sync privacy. */
+"settings.syncFooter" = "When enabled, history is stored in your private iCloud database.";
+
+/* Button help to add an item to favorites. */
+"card.addToFavorites" = "Add to favorites";
+
+/* Button help to remove an item from favorites. */
+"card.removeFromFavorites" = "Remove from favorites";
+
+/* Tooltip showing which Macs a clip was copied on. %@ is a comma-separated list of device names. */
+"card.deviceTooltip" = "Copied on: %@";
+
+/* Help text for the device scope filter menu. */
+"picker.deviceScopeHelp" = "Filter by Mac";

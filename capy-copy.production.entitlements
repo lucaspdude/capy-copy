@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- App Sandbox is intentionally disabled: CGEventPost cannot inject
+         keystrokes into other apps while the app is sandboxed, even with
+         Accessibility permission granted. Capy Copy is distributed outside
+         the Mac App Store, so sandboxing is optional. -->
+
+    <!-- CloudKit entitlements remain active for Developer ID distribution. -->
+    <key>com.apple.developer.icloud-services</key>
+    <array>
+        <string>CloudKit</string>
+    </array>
+    <key>com.apple.developer.icloud-container-identifiers</key>
+    <array>
+        <string>iCloud.dev.capy-copy</string>
+    </array>
+    <key>com.apple.developer.icloud-container-environment</key>
+    <string>Production</string>
+</dict>
+</plist>
