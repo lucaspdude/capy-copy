@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/lucaspdude/capy-copy/compare/v0.1.2...v0.1.3) (2026-06-17)
+
+
+### Bug Fixes
+
+* load bundled resources from app bundle instead of SwiftPM resource bundle ([922e132](https://github.com/lucaspdude/capy-copy/commit/922e1320c509fcbef48fcdbd25b1092cc38a95b7))
+* load bundled resources from app bundle instead of SwiftPM resource bundle ([24a2b9d](https://github.com/lucaspdude/capy-copy/commit/24a2b9dbd66f538dbbc99bf1a4b82bf3c1cccba1))
+
 ## [0.1.2](https://github.com/lucaspdude/capy-copy/compare/v0.1.1...v0.1.2) (2026-06-17)
 
 
