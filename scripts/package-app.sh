@@ -33,22 +33,22 @@ DMG_NAME="capy-copy-${VERSION}.dmg"
 echo "Building release binary for $TAG (bundle version $BUNDLE_VERSION)..."
 swift build -c release
 
-# SwiftPM's generated resource bundle accessor looks for the bundle at the app
-# bundle root, which codesign rejects as "unsealed contents". Patch it to look
-# in the standard Contents/Resources/ location and rebuild.
-ACCESSOR_FILE=$(find .build -path "*capy_copy.build/DerivedSources/resource_bundle_accessor.swift" -print -quit)
-if [ -n "$ACCESSOR_FILE" ]; then
-    sed -i '' 's|Bundle.main.bundleURL.appendingPathComponent("capy-copy_capy-copy.bundle")|Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/capy-copy_capy-copy.bundle")|g' "$ACCESSOR_FILE"
-    swift build -c release
-fi
-
 echo "Packaging $APP_NAME..."
 rm -rf "$APP_NAME" "${DMG_NAME}"
 mkdir -p "$APP_NAME/Contents/MacOS"
 mkdir -p "$APP_NAME/Contents/Resources"
 
 cp ".build/release/capy-copy" "$APP_NAME/Contents/MacOS/"
-cp -R ".build/release/capy-copy_capy-copy.bundle" "$APP_NAME/Contents/Resources/"
+
+# Copy localization files into the standard macOS app bundle location.
+find "AppResources" -name "*.lproj" -type d -exec cp -R {} "$APP_NAME/Contents/Resources/" \;
+
+# Copy other bundled resources.
+for resource in capy_icon.png capy_menubar.png PrivacyInfo.xcprivacy; do
+    if [ -f "AppResources/$resource" ]; then
+        cp "AppResources/$resource" "$APP_NAME/Contents/Resources/"
+    fi
+done
 
 cat > "$APP_NAME/Contents/Info.plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -102,21 +102,20 @@ if [ -n "${PROVISIONING_PROFILE_PATH:-}" ]; then
     cp "$PROVISIONING_PROFILE_PATH" "$APP_NAME/Contents/embedded.provisionprofile"
 fi
 
-if [ -f "Sources/capy-copy/Resources/capy_icon.png" ]; then
-    ICONSET="$APP_NAME/Contents/Resources/capy-copy_capy-copy.bundle/capy_icon.iconset"
+if [ -f "AppResources/capy_icon.png" ]; then
+    ICONSET="$APP_NAME/Contents/Resources/capy_icon.iconset"
     mkdir -p "$ICONSET"
-    sips -z 16 16 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_16x16.png" >/dev/null
-    sips -z 32 32 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_16x16@2x.png" >/dev/null
-    sips -z 32 32 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_32x32.png" >/dev/null
-    sips -z 64 64 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_32x32@2x.png" >/dev/null
-    sips -z 128 128 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_128x128.png" >/dev/null
-    sips -z 256 256 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_128x128@2x.png" >/dev/null
-    sips -z 256 256 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_256x256.png" >/dev/null
-    sips -z 512 512 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_256x256@2x.png" >/dev/null
-    sips -z 512 512 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_512x512.png" >/dev/null
-    sips -z 1024 1024 "Sources/capy-copy/Resources/capy_icon.png" --out "$ICONSET/icon_512x512@2x.png" >/dev/null
-    iconutil -c icns "$ICONSET" -o "$APP_NAME/Contents/Resources/capy-copy_capy-copy.bundle/capy_icon.icns"
-    cp "$APP_NAME/Contents/Resources/capy-copy_capy-copy.bundle/capy_icon.icns" "$APP_NAME/Contents/Resources/capy_icon.icns"
+    sips -z 16 16 "AppResources/capy_icon.png" --out "$ICONSET/icon_16x16.png" >/dev/null
+    sips -z 32 32 "AppResources/capy_icon.png" --out "$ICONSET/icon_16x16@2x.png" >/dev/null
+    sips -z 32 32 "AppResources/capy_icon.png" --out "$ICONSET/icon_32x32.png" >/dev/null
+    sips -z 64 64 "AppResources/capy_icon.png" --out "$ICONSET/icon_32x32@2x.png" >/dev/null
+    sips -z 128 128 "AppResources/capy_icon.png" --out "$ICONSET/icon_128x128.png" >/dev/null
+    sips -z 256 256 "AppResources/capy_icon.png" --out "$ICONSET/icon_128x128@2x.png" >/dev/null
+    sips -z 256 256 "AppResources/capy_icon.png" --out "$ICONSET/icon_256x256.png" >/dev/null
+    sips -z 512 512 "AppResources/capy_icon.png" --out "$ICONSET/icon_256x256@2x.png" >/dev/null
+    sips -z 512 512 "AppResources/capy_icon.png" --out "$ICONSET/icon_512x512.png" >/dev/null
+    sips -z 1024 1024 "AppResources/capy_icon.png" --out "$ICONSET/icon_512x512@2x.png" >/dev/null
+    iconutil -c icns "$ICONSET" -o "$APP_NAME/Contents/Resources/capy_icon.icns"
     rm -rf "$ICONSET"
 fi
 

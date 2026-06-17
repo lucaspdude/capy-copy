@@ -4,23 +4,41 @@ import XCTest
 final class LocalizationTests: XCTestCase {
     let supportedLocales = ["en", "pt-BR", "es", "de", "fr", "ja", "zh-Hans"]
 
+    /// The directory that holds the app's bundled resources (localizations,
+    /// icons, privacy manifest). It lives at the repository root, outside the
+    /// SwiftPM target path, so SwiftPM does not process it automatically.
+    private var resourcesDirectory: URL {
+        URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent() // Tests/capy-copyTests
+            .deletingLastPathComponent() // Tests
+            .deletingLastPathComponent() // repository root
+            .appendingPathComponent("AppResources")
+    }
+
     func testAllSupportedLocalesHaveSameKeysAsEnglish() throws {
-        let bundle = Bundle.module
-        guard let englishURL = bundle.url(forResource: "Localizable", withExtension: "strings", subdirectory: nil, localization: "en") else {
-            XCTFail("Could not find English Localizable.strings")
-            return
-        }
+        let englishURL = resourcesDirectory
+            .appendingPathComponent("en.lproj")
+            .appendingPathComponent("Localizable.strings")
+
+        XCTAssertTrue(
+            FileManager.default.fileExists(atPath: englishURL.path),
+            "Could not find English Localizable.strings at \(englishURL.path)"
+        )
 
         let englishKeys = try keys(from: englishURL)
         XCTAssertFalse(englishKeys.isEmpty, "English strings file should not be empty")
 
         for locale in supportedLocales {
-            guard let url = bundle.url(forResource: "Localizable", withExtension: "strings", subdirectory: nil, localization: locale) else {
-                XCTFail("Missing Localizable.strings for locale \(locale)")
-                continue
-            }
+            let localeURL = resourcesDirectory
+                .appendingPathComponent("\(locale).lproj")
+                .appendingPathComponent("Localizable.strings")
 
-            let localeKeys = try keys(from: url)
+            XCTAssertTrue(
+                FileManager.default.fileExists(atPath: localeURL.path),
+                "Missing Localizable.strings for locale \(locale)"
+            )
+
+            let localeKeys = try keys(from: localeURL)
             let missing = englishKeys.subtracting(localeKeys)
             let extra = localeKeys.subtracting(englishKeys)
 
@@ -36,11 +54,12 @@ final class LocalizationTests: XCTestCase {
     }
 
     func testLocalizedStringsAreNotEmpty() throws {
-        let bundle = Bundle.module
         for locale in supportedLocales {
-            guard let url = bundle.url(forResource: "Localizable", withExtension: "strings", subdirectory: nil, localization: locale) else {
-                continue
-            }
+            let url = resourcesDirectory
+                .appendingPathComponent("\(locale).lproj")
+                .appendingPathComponent("Localizable.strings")
+
+            guard FileManager.default.fileExists(atPath: url.path) else { continue }
 
             let strings = try parseStrings(at: url)
             for (key, value) in strings {
