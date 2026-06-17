@@ -14,9 +14,6 @@ let package = Package(
             name: "capy-copy",
             dependencies: [],
             path: "Sources/capy-copy",
-            resources: [
-                .process("Resources")
-            ],
             linkerSettings: [
                 .linkedFramework("Carbon"),
                 .linkedFramework("EventKit"),
