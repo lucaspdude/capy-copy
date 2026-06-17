@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # A Personal Access Token is required so that the created release
+          # triggers the Build and Release workflow. Events created by the
+          # default GITHUB_TOKEN do not cascade into other workflows.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
