@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/lucaspdude/capy-copy/compare/v0.1.1...v0.1.2) (2026-06-17)
+
+
+### Bug Fixes
+
+* use PAT in release-please to trigger release workflow ([b8b29ba](https://github.com/lucaspdude/capy-copy/commit/b8b29baa02735ae675ec439c5d620f1f1ec15734))
+* use PAT in release-please to trigger release workflow ([046c045](https://github.com/lucaspdude/capy-copy/commit/046c045594fe5a902840acae3505c26c29c20add))
+
 ## [0.1.1](https://github.com/lucaspdude/capy-copy/compare/v0.1.0...v0.1.1) (2026-06-17)
 
 
