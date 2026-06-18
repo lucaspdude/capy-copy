@@ -129,6 +129,7 @@ struct QuickPickerView: View {
                 .font(theme.bodyFont)
         }
         .menuStyle(.borderlessButton)
+        .fixedSize(horizontal: true, vertical: false)
         .help(NSLocalizedString("picker.deviceScopeHelp", bundle: .module, comment: ""))
     }
 
