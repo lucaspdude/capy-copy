@@ -163,6 +163,7 @@ struct QuickPickerView: View {
                         }
                         .padding()
                     }
+                    .scrollIndicators(.hidden)
                     .onChange(of: viewModel.selectedItemID) { newID in
                         guard let newID = newID else { return }
                         withAnimation(.easeInOut(duration: 0.15)) {
