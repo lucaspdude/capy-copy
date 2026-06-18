@@ -33,6 +33,7 @@ final class QuickPickerWindowController {
         self.targetApplication = resolvedTarget
 
         if let panel = panel {
+            applyTheme(to: panel)
             animatePanelIn(panel)
             panel.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
@@ -148,6 +149,34 @@ final class QuickPickerWindowController {
             return screen
         }
         return NSScreen.main ?? NSScreen.screens.first!
+    }
+
+    private func applyTheme(to panel: NSPanel) {
+        guard let settingsStore = settingsStore,
+              let contentView = panel.contentView,
+              let layer = contentView.layer else { return }
+
+        let theme = settingsStore.selectedTheme.definition
+        let existingEffect = contentView.subviews.first(where: { $0 is NSVisualEffectView })
+
+        layer.cornerRadius = theme.panelCornerRadius
+        layer.borderWidth = theme.borderWidth
+        layer.borderColor = NSColor(theme.borderColor).cgColor
+
+        if theme.name == .liquidGlass {
+            layer.backgroundColor = nil
+            if existingEffect == nil {
+                let visualEffectView = NSVisualEffectView(frame: contentView.bounds)
+                visualEffectView.material = .popover
+                visualEffectView.blendingMode = .behindWindow
+                visualEffectView.state = .active
+                visualEffectView.autoresizingMask = [.width, .height]
+                contentView.addSubview(visualEffectView, positioned: .below, relativeTo: contentView.subviews.first)
+            }
+        } else {
+            existingEffect?.removeFromSuperview()
+            layer.backgroundColor = NSColor(theme.windowBackground).cgColor
+        }
     }
 
     func paste(text: String) {
