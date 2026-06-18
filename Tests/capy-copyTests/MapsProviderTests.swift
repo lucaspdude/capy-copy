@@ -8,12 +8,6 @@ final class MapsProviderTests: XCTestCase {
         XCTAssertEqual(url?.host, "maps.apple.com")
     }
 
-    func testGoogleMapsIsHTTPS() {
-        let url = MapsProvider.googleMaps.mapsURL(for: "Times Square")
-        XCTAssertEqual(url?.scheme, "https")
-        XCTAssertEqual(url?.host, "www.google.com")
-    }
-
     func testSpecialCharactersDoNotBreakQuery() {
         let url = MapsProvider.appleMaps.mapsURL(for: "a&b=c#d")
         // The '&' and '=' and '#' must be percent-encoded inside the query value,

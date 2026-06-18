@@ -128,6 +128,7 @@ struct ClipCard: View {
             Image(systemName: icon)
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(active ? theme.accentColor : theme.secondaryTextColor)
+                .symbolEffect(.bounce, value: active)
                 .frame(width: 34, height: 34)
                 .background(
                     RoundedRectangle(cornerRadius: theme.buttonCornerRadius)

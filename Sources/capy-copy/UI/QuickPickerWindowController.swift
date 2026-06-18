@@ -33,6 +33,7 @@ final class QuickPickerWindowController {
         self.targetApplication = resolvedTarget
 
         if let panel = panel {
+            animatePanelIn(panel)
             panel.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             viewModel?.resetSelection()
@@ -49,11 +50,13 @@ final class QuickPickerWindowController {
 
         let theme = settingsStore.selectedTheme.definition
 
-        let screenHeight = NSScreen.main?.visibleFrame.height ?? 800
-        let panelHeight = (screenHeight * 2.0 / 3.0).rounded()
+        let targetScreen = activeScreen()
+        let screenFrame = targetScreen.visibleFrame
+        let panelHeight = (screenFrame.height * 2.0 / 3.0).rounded()
+        let panelWidth: CGFloat = 720
 
         let newPanel = NSPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 720, height: panelHeight),
+            contentRect: NSRect(x: 0, y: 0, width: panelWidth, height: panelHeight),
             styleMask: [.titled, .utilityWindow, .fullSizeContentView, .nonactivatingPanel],
             backing: .buffered,
             defer: false
@@ -96,11 +99,17 @@ final class QuickPickerWindowController {
         contentView.addSubview(hostingView)
 
         newPanel.contentView = contentView
-        newPanel.center()
+
+        let centerX = screenFrame.midX - panelWidth / 2
+        let centerY = screenFrame.midY - panelHeight / 2
+        newPanel.setFrameOrigin(NSPoint(x: centerX, y: centerY))
 
         self.panel = newPanel
+        newPanel.alphaValue = 0
+        newPanel.contentView?.layer?.transform = CATransform3DMakeScale(0.95, 0.95, 1)
         newPanel.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+        animatePanelIn(newPanel)
 
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             guard let self = self, let window = event.window, window == self.panel else { return event }
@@ -109,7 +118,36 @@ final class QuickPickerWindowController {
     }
 
     func hide() {
-        panel?.orderOut(nil)
+        guard let panel = panel else { return }
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.15
+            context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            panel.animator().alphaValue = 0
+            panel.contentView?.layer?.transform = CATransform3DMakeScale(0.97, 0.97, 1)
+        } completionHandler: { [weak self] in
+            Task { @MainActor in
+                panel.orderOut(nil)
+                self?.panel?.alphaValue = 1
+                self?.panel?.contentView?.layer?.transform = CATransform3DIdentity
+            }
+        }
+    }
+
+    private func animatePanelIn(_ panel: NSPanel) {
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.2
+            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            panel.animator().alphaValue = 1
+            panel.contentView?.layer?.transform = CATransform3DIdentity
+        }
+    }
+
+    private func activeScreen() -> NSScreen {
+        let mouseLocation = NSEvent.mouseLocation
+        if let screen = NSScreen.screens.first(where: { NSMouseInRect(mouseLocation, $0.frame, false) }) {
+            return screen
+        }
+        return NSScreen.main ?? NSScreen.screens.first!
     }
 
     func paste(text: String) {

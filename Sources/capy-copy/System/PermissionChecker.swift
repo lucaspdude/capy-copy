@@ -1,6 +1,5 @@
 import Foundation
 import AppKit
-import EventKit
 import ApplicationServices
 import os.log
 
@@ -30,35 +29,5 @@ enum PermissionChecker {
     static func openAccessibilitySettings() {
         guard let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") else { return }
         NSWorkspace.shared.open(url)
-    }
-
-    // MARK: - Calendar
-
-    static func calendarAuthorizationStatus() -> EKAuthorizationStatus {
-        EKEventStore.authorizationStatus(for: .event)
-    }
-
-    static func requestCalendarAccess() async -> Bool {
-        let store = EKEventStore()
-        do {
-            return try await store.requestFullAccessToEvents()
-        } catch {
-            return false
-        }
-    }
-
-    // MARK: - Reminders
-
-    static func reminderAuthorizationStatus() -> EKAuthorizationStatus {
-        EKEventStore.authorizationStatus(for: .reminder)
-    }
-
-    static func requestReminderAccess() async -> Bool {
-        let store = EKEventStore()
-        do {
-            return try await store.requestFullAccessToReminders()
-        } catch {
-            return false
-        }
     }
 }

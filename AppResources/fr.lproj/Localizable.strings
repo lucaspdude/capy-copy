@@ -58,32 +58,14 @@
 /* Button label after the original clipboard text has been copied. */
 "card.copiedOriginal" = "Original copié";
 
-/* Button to create a calendar event from a detected date. */
-"action.addToCalendar" = "Ajouter au Calendrier";
-
-/* Button to create a reminder from a detected date. */
-"action.createReminder" = "Créer un Rappel";
-
-/* Status shown after a calendar event has been created from a detected date. */
-"action.createdCalendar" = "Ajouté au Calendrier";
-
-/* Status shown after a reminder has been created from a detected date. */
-"action.createdReminder" = "Rappel Créé";
-
 /* Button to open an address in the chosen maps app. %@ is the maps provider name. */
-"action.openInMaps" = "Ouvrir dans %@";
+"action.openInMaps" = "Ouvrir dans Plans";
 
 /* Button to clear the analysis history. */
 "footer.clearHistory" = "Effacer l’Historique";
 
 /* Title of the settings sheet. */
 "settings.title" = "Réglages";
-
-/* Section title for maps settings. */
-"settings.maps" = "Plans";
-
-/* Label for the default maps app picker. */
-"settings.defaultMapsApp" = "App Plans par défaut";
 
 /* Section title for behavior settings. */
 "settings.behavior" = "Comportement";
@@ -147,25 +129,13 @@
 "onboarding.title" = "Bienvenue dans Capy Copy";
 
 /* Subtitle explaining why permissions are needed. */
-"onboarding.subtitle" = "Quelques autorisations sont nécessaires pour coller et créer des événements d'agenda.";
+"onboarding.subtitle" = "Une autorisation est nécessaire pour coller dans d’autres apps.";
 
 /* Title for the paste permission step. */
 "onboarding.pasteTitle" = "Coller dans les apps";
 
 /* Description for the paste permission step. */
 "onboarding.pasteDescription" = "Permet à Capy Copy de coller les éléments sélectionnés dans l'app active.";
-
-/* Title for the calendar permission step. */
-"onboarding.calendarTitle" = "Calendrier";
-
-/* Description for the calendar permission step. */
-"onboarding.calendarDescription" = "Créez des événements à partir des dates trouvées dans le presse-papiers.";
-
-/* Title for the reminders permission step. */
-"onboarding.remindersTitle" = "Rappels";
-
-/* Description for the reminders permission step. */
-"onboarding.remindersDescription" = "Créez des rappels à partir des dates trouvées dans le presse-papiers.";
 
 /* Button to request a permission. */
 "onboarding.grant" = "Autoriser";
@@ -187,9 +157,6 @@
 
 /* Theme name for the terminal style. */
 "theme.terminal" = "Terminal";
-
-/* Theme name for the Claude Code style. */
-"theme.claudeCode" = "Claude Code";
 
 /* All items tab title in the picker. */
 "picker.tab.all" = "All";

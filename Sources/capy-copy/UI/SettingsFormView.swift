@@ -5,8 +5,6 @@ struct SettingsFormView: View {
     @ObservedObject var settingsStore: SettingsStore
 
     @State private var accessibilityGranted = false
-    @State private var calendarGranted = false
-    @State private var remindersGranted = false
 
     private var theme: ThemeDefinition { settingsStore.selectedTheme.definition }
 
@@ -88,27 +86,6 @@ struct SettingsFormView: View {
                     Divider().overlay(theme.dividerColor)
                 }
 
-                // MARK: - Actions
-                VStack(alignment: .leading, spacing: 12) {
-                    SettingsSectionHeader(title: "Actions", theme: theme)
-                    SettingsRow(
-                        icon: "map",
-                        title: "Maps provider",
-                        description: "Choose which app opens detected addresses.",
-                        theme: theme
-                    ) {
-                        Picker("", selection: $settingsStore.mapsProvider) {
-                            ForEach(MapsProvider.allCases) { provider in
-                                Text(provider.rawValue).tag(provider)
-                            }
-                        }
-                        .labelsHidden()
-                        .pickerStyle(.segmented)
-                        .frame(maxWidth: 200)
-                    }
-                    Divider().overlay(theme.dividerColor)
-                }
-
                 // MARK: - Shortcuts
                 VStack(alignment: .leading, spacing: 12) {
                     SettingsSectionHeader(title: "Shortcuts", theme: theme)
@@ -149,38 +126,6 @@ struct SettingsFormView: View {
                         theme: theme
                     )
                     Divider().overlay(theme.dividerColor)
-                    PermissionRow(
-                        icon: "calendar",
-                        title: NSLocalizedString("onboarding.calendarTitle", bundle: .module, comment: ""),
-                        description: NSLocalizedString("onboarding.calendarDescription", bundle: .module, comment: ""),
-                        isGranted: calendarGranted,
-                        grantTitle: NSLocalizedString("onboarding.grant", bundle: .module, comment: ""),
-                        action: {
-                            Task {
-                                let granted = await PermissionChecker.requestCalendarAccess()
-                                await MainActor.run { calendarGranted = granted }
-                            }
-                        },
-                        openSettingsAction: nil,
-                        theme: theme
-                    )
-                    Divider().overlay(theme.dividerColor)
-                    PermissionRow(
-                        icon: "bell",
-                        title: NSLocalizedString("onboarding.remindersTitle", bundle: .module, comment: ""),
-                        description: NSLocalizedString("onboarding.remindersDescription", bundle: .module, comment: ""),
-                        isGranted: remindersGranted,
-                        grantTitle: NSLocalizedString("onboarding.grant", bundle: .module, comment: ""),
-                        action: {
-                            Task {
-                                let granted = await PermissionChecker.requestReminderAccess()
-                                await MainActor.run { remindersGranted = granted }
-                            }
-                        },
-                        openSettingsAction: nil,
-                        theme: theme
-                    )
-                    Divider().overlay(theme.dividerColor)
                 }
 
                 // MARK: - Version
@@ -211,8 +156,6 @@ struct SettingsFormView: View {
 
     private func refreshPermissionStatuses() {
         accessibilityGranted = PermissionChecker.accessibilityIsGranted()
-        calendarGranted = PermissionChecker.calendarAuthorizationStatus() == .fullAccess
-        remindersGranted = PermissionChecker.reminderAuthorizationStatus() == .fullAccess
     }
 
     private var appVersion: String {

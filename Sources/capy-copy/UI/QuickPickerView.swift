@@ -183,29 +183,7 @@ struct QuickPickerView: View {
     private var sidebar: some View {
         VStack(spacing: 6) {
             ForEach(PickerTab.allCases) { tab in
-                Button {
-                    viewModel.selectedTab = tab
-                    if tab == .all || tab == .favorites {
-                        searchFieldIsFocused = true
-                    } else {
-                        searchFieldIsFocused = false
-                    }
-                } label: {
-                    VStack(spacing: 6) {
-                        Image(systemName: tab.icon)
-                            .font(.system(size: 22, weight: .medium))
-                        Text(tab.label)
-                            .font(theme.captionFont)
-                    }
-                    .frame(width: 76, height: 64)
-                    .foregroundStyle(viewModel.selectedTab == tab ? theme.accentColor : theme.secondaryTextColor)
-                    .background(
-                        RoundedRectangle(cornerRadius: theme.buttonCornerRadius)
-                            .fill(viewModel.selectedTab == tab ? theme.accentColor.opacity(0.12) : Color.clear)
-                    )
-                    .contentShape(RoundedRectangle(cornerRadius: theme.buttonCornerRadius))
-                }
-                .buttonStyle(.plain)
+                tabButton(for: tab)
             }
 
             Spacer()
@@ -214,42 +192,61 @@ struct QuickPickerView: View {
                 .overlay(theme.dividerColor)
 
             VStack(spacing: 6) {
-                Button {
+                actionButton(icon: "trash", label: "Clear", help: "Clear history") {
                     viewModel.clearHistory()
-                } label: {
-                    VStack(spacing: 6) {
-                        Image(systemName: "trash")
-                            .font(.system(size: 22, weight: .medium))
-                        Text("Clear")
-                            .font(theme.captionFont)
-                    }
-                    .frame(width: 76, height: 64)
-                    .foregroundStyle(theme.secondaryTextColor)
-                    .contentShape(RoundedRectangle(cornerRadius: theme.buttonCornerRadius))
                 }
-                .buttonStyle(.plain)
-                .help("Clear history")
-
-                Button {
+                actionButton(icon: "power", label: "Quit", help: "Quit Capy Copy") {
                     NSApp.terminate(nil)
-                } label: {
-                    VStack(spacing: 6) {
-                        Image(systemName: "power")
-                            .font(.system(size: 22, weight: .medium))
-                        Text("Quit")
-                            .font(theme.captionFont)
-                    }
-                    .frame(width: 76, height: 64)
-                    .foregroundStyle(theme.secondaryTextColor)
-                    .contentShape(RoundedRectangle(cornerRadius: theme.buttonCornerRadius))
                 }
-                .buttonStyle(.plain)
-                .help("Quit Capy Copy")
             }
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 8)
-        .frame(width: 92)
+        .frame(width: 72)
         .background(theme.cardBackgroundColor.opacity(0.5))
+    }
+
+    private func tabButton(for tab: PickerTab) -> some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.15)) {
+                viewModel.selectedTab = tab
+            }
+            if tab == .all || tab == .favorites {
+                searchFieldIsFocused = true
+            } else {
+                searchFieldIsFocused = false
+            }
+        } label: {
+            VStack(spacing: 4) {
+                Image(systemName: tab.icon)
+                    .font(.system(size: 20, weight: .medium))
+                Text(tab.label)
+                    .font(theme.captionFont)
+            }
+            .frame(width: 56, height: 48)
+            .foregroundStyle(viewModel.selectedTab == tab ? theme.accentColor : theme.secondaryTextColor)
+            .background(
+                RoundedRectangle(cornerRadius: theme.tabButtonCornerRadius, style: .continuous)
+                    .fill(viewModel.selectedTab == tab ? theme.accentColor.opacity(0.12) : Color.clear)
+            )
+            .contentShape(RoundedRectangle(cornerRadius: theme.tabButtonCornerRadius, style: .continuous))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func actionButton(icon: String, label: String, help: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 2) {
+                Image(systemName: icon)
+                    .font(.system(size: 15, weight: .medium))
+                Text(label)
+                    .font(.system(size: 11, weight: .medium))
+            }
+            .frame(width: 56, height: 24)
+            .foregroundStyle(theme.secondaryTextColor)
+            .contentShape(RoundedRectangle(cornerRadius: theme.buttonCornerRadius, style: .continuous))
+        }
+        .buttonStyle(.plain)
+        .help(help)
     }
 }

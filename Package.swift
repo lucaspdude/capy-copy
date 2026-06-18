@@ -16,7 +16,6 @@ let package = Package(
             path: "Sources/capy-copy",
             linkerSettings: [
                 .linkedFramework("Carbon"),
-                .linkedFramework("EventKit"),
                 .linkedFramework("SystemConfiguration"),
                 .linkedFramework("QuickLookThumbnailing"),
                 .linkedFramework("CloudKit")

@@ -67,32 +67,14 @@
 /* Button label after the original clipboard text has been copied. */
 "card.copiedOriginal" = "Copied Original";
 
-/* Button to create a calendar event from a detected date. */
-"action.addToCalendar" = "Add to Calendar";
-
-/* Button to create a reminder from a detected date. */
-"action.createReminder" = "Create Reminder";
-
-/* Status shown after a calendar event has been created from a detected date. */
-"action.createdCalendar" = "Added to Calendar";
-
-/* Status shown after a reminder has been created from a detected date. */
-"action.createdReminder" = "Reminder Created";
-
-/* Button to open an address in the chosen maps app. %@ is the maps provider name. */
-"action.openInMaps" = "Open in %@";
+/* Button to open an address in Maps. */
+"action.openInMaps" = "Open in Maps";
 
 /* Button to clear the analysis history. */
 "footer.clearHistory" = "Clear History";
 
 /* Title of the settings sheet. */
 "settings.title" = "Settings";
-
-/* Section title for maps settings. */
-"settings.maps" = "Maps";
-
-/* Label for the default maps app picker. */
-"settings.defaultMapsApp" = "Default Maps App";
 
 /* Section title for behavior settings. */
 "settings.behavior" = "Behavior";
@@ -179,25 +161,13 @@
 "onboarding.title" = "Welcome to Capy Copy";
 
 /* Subtitle explaining why permissions are needed. */
-"onboarding.subtitle" = "A few permissions are needed for the app to paste and create calendar events.";
+"onboarding.subtitle" = "A permission is needed for the app to paste into other apps.";
 
 /* Title for the paste permission step. */
 "onboarding.pasteTitle" = "Paste into apps";
 
 /* Description for the paste permission step. */
 "onboarding.pasteDescription" = "Allows Capy Copy to paste selected items into the active app.";
-
-/* Title for the calendar permission step. */
-"onboarding.calendarTitle" = "Calendar";
-
-/* Description for the calendar permission step. */
-"onboarding.calendarDescription" = "Create events from dates found in your clipboard.";
-
-/* Title for the reminders permission step. */
-"onboarding.remindersTitle" = "Reminders";
-
-/* Description for the reminders permission step. */
-"onboarding.remindersDescription" = "Create reminders from dates found in your clipboard.";
 
 /* Button to request a permission. */
 "onboarding.grant" = "Grant";
@@ -216,9 +186,6 @@
 
 /* Theme name for the terminal style. */
 "theme.terminal" = "Terminal";
-
-/* Theme name for the Claude Code style. */
-"theme.claudeCode" = "Claude Code";
 
 /* Button help to add an item to favorites. */
 "card.addToFavorites" = "Add to favorites";
