@@ -130,15 +130,7 @@ struct ClipCard: View {
                 .foregroundStyle(active ? theme.accentColor : theme.secondaryTextColor)
                 .symbolEffect(.bounce, value: active)
                 .frame(width: 34, height: 34)
-                .background(
-                    RoundedRectangle(cornerRadius: theme.buttonCornerRadius)
-                        .fill(theme.searchBackgroundColor.opacity(0.8))
-                        .background(.regularMaterial)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: theme.buttonCornerRadius)
-                        .stroke(theme.borderColor, lineWidth: theme.borderWidth)
-                )
+                .contentShape(RoundedRectangle(cornerRadius: theme.buttonCornerRadius))
         }
         .buttonStyle(.plain)
         .help(help)
@@ -150,15 +142,7 @@ struct ClipCard: View {
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(theme.accentColor)
                 .frame(width: 34, height: 34)
-                .background(
-                    RoundedRectangle(cornerRadius: theme.buttonCornerRadius)
-                        .fill(theme.searchBackgroundColor.opacity(0.8))
-                        .background(.regularMaterial)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: theme.buttonCornerRadius)
-                        .stroke(theme.borderColor, lineWidth: theme.borderWidth)
-                )
+                .contentShape(RoundedRectangle(cornerRadius: theme.buttonCornerRadius))
         }
         .buttonStyle(.plain)
         .help("Copy to clipboard")
