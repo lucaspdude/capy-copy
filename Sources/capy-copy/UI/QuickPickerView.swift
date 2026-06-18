@@ -217,9 +217,9 @@ struct QuickPickerView: View {
                 searchFieldIsFocused = false
             }
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 20, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
                 Text(tab.label)
                     .font(theme.captionFont)
             }
@@ -236,11 +236,11 @@ struct QuickPickerView: View {
 
     private func actionButton(icon: String, label: String, help: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            VStack(spacing: 2) {
+            VStack(spacing: 1) {
                 Image(systemName: icon)
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.system(size: 12, weight: .medium))
                 Text(label)
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.system(size: 10, weight: .medium))
             }
             .frame(width: 56, height: 24)
             .foregroundStyle(theme.secondaryTextColor)
