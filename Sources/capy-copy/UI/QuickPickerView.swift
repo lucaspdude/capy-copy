@@ -139,7 +139,7 @@ struct QuickPickerView: View {
                 EmptyStateView(theme: theme, mode: mode)
             } else {
                 ScrollViewReader { proxy in
-                    ScrollView {
+                    ScrollView(.vertical, showsIndicators: false) {
                         LazyVStack(spacing: 12) {
                             ForEach(items) { item in
                                 ClipCard(
@@ -164,7 +164,6 @@ struct QuickPickerView: View {
                         }
                         .padding()
                     }
-                    .scrollIndicators(.hidden)
                     .onChange(of: viewModel.selectedItemID) { newID in
                         guard let newID = newID else { return }
                         withAnimation(.easeInOut(duration: 0.15)) {
