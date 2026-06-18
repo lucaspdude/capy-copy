@@ -191,7 +191,7 @@ struct QuickPickerView: View {
             Divider()
                 .overlay(theme.dividerColor)
 
-            VStack(spacing: 6) {
+            VStack(spacing: 10) {
                 actionButton(icon: "trash", label: "Clear", help: "Clear history") {
                     viewModel.clearHistory()
                 }
@@ -217,19 +217,15 @@ struct QuickPickerView: View {
                 searchFieldIsFocused = false
             }
         } label: {
-            VStack(spacing: 3) {
-                Image(systemName: tab.icon)
-                    .font(.system(size: 16, weight: .medium))
-                Text(tab.label)
-                    .font(theme.captionFont)
-            }
-            .frame(width: 56, height: 48)
-            .foregroundStyle(viewModel.selectedTab == tab ? theme.accentColor : theme.secondaryTextColor)
-            .background(
-                RoundedRectangle(cornerRadius: theme.tabButtonCornerRadius, style: .continuous)
-                    .fill(viewModel.selectedTab == tab ? theme.accentColor.opacity(0.12) : Color.clear)
-            )
-            .contentShape(RoundedRectangle(cornerRadius: theme.tabButtonCornerRadius, style: .continuous))
+            Image(systemName: tab.icon)
+                .font(.system(size: 18, weight: .medium))
+                .frame(width: 56, height: 48)
+                .foregroundStyle(viewModel.selectedTab == tab ? theme.accentColor : theme.secondaryTextColor)
+                .background(
+                    RoundedRectangle(cornerRadius: theme.tabButtonCornerRadius, style: .continuous)
+                        .fill(viewModel.selectedTab == tab ? theme.accentColor.opacity(0.12) : Color.clear)
+                )
+                .contentShape(RoundedRectangle(cornerRadius: theme.tabButtonCornerRadius, style: .continuous))
         }
         .buttonStyle(.plain)
     }

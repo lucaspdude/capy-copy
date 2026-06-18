@@ -157,7 +157,7 @@ struct ThemeDefinition {
         case .liquidGlass:
             return 24
         case .terminal:
-            return 8
+            return 18
         }
     }
 
