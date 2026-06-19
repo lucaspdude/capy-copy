@@ -52,10 +52,20 @@ struct QuickPickerView: View {
 
     private var mainContent: some View {
         VStack(spacing: 0) {
+            if !viewModel.missingPermissions.isEmpty {
+                PermissionBanner(
+                    theme: theme,
+                    missingPermissions: viewModel.missingPermissions,
+                    onOpenSettings: { permission in
+                        PermissionChecker.openSettings(for: permission)
+                    }
+                )
+            }
+
             if viewModel.selectedTab.showsSearchBar {
                 searchBar
                     .padding(.horizontal, 16)
-                    .padding(.top, 16)
+                    .padding(.top, viewModel.missingPermissions.isEmpty ? 16 : 0)
                     .padding(.bottom, 12)
             }
 

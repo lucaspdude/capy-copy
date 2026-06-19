@@ -232,6 +232,15 @@ struct ThemeDefinition {
             return 1
         }
     }
+
+    var warningColor: Color {
+        switch name {
+        case .liquidGlass:
+            return Color(hex: "#ff9f0a")
+        case .terminal:
+            return Color(hex: "#ffb454")
+        }
+    }
 }
 
 extension AppTheme {

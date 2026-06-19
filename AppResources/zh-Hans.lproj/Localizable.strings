@@ -205,3 +205,8 @@
 
 /* Help text for the device scope filter menu. */
 "picker.deviceScopeHelp" = "Filter by Mac";
+
+/* Permission banner shown inside the popover when a required permission is missing. */
+"permissions.banner.missing" = "使用 Capy Copy 需要“%@”权限。";
+"permissions.banner.more" = "还有 %d 项";
+"permissions.banner.action" = "打开设置";
