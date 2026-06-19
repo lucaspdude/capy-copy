@@ -4,7 +4,7 @@ import SwiftUI
 struct PermissionsView: View {
     @ObservedObject var settingsStore: SettingsStore
 
-    @State private var accessibilityGranted = false
+    @State private var grantedStatuses: [PermissionChecker.RequiredPermission: Bool] = [:]
 
     private var theme: ThemeDefinition { settingsStore.selectedTheme.definition }
 
@@ -15,27 +15,31 @@ struct PermissionsView: View {
                     .font(theme.headlineFont)
                     .foregroundStyle(theme.primaryTextColor)
 
-                PermissionRow(
-                    icon: "cursorarrow.click",
-                    title: NSLocalizedString("onboarding.pasteTitle", bundle: .module, comment: ""),
-                    description: NSLocalizedString("onboarding.pasteDescription", bundle: .module, comment: ""),
-                    isGranted: accessibilityGranted,
-                    grantTitle: NSLocalizedString("onboarding.grant", bundle: .module, comment: ""),
-                    action: {
-                        if PermissionChecker.accessibilityIsGranted() {
-                            accessibilityGranted = true
-                        } else {
-                            PermissionChecker.requestAccessibilityAccess()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                refreshStatuses()
+                ForEach(PermissionChecker.RequiredPermission.allCases) { permission in
+                    PermissionRow(
+                        icon: permission.iconName,
+                        title: NSLocalizedString(permission.displayKey, bundle: .module, comment: ""),
+                        description: NSLocalizedString(permission.descriptionKey, bundle: .module, comment: ""),
+                        isGranted: grantedStatuses[permission] ?? false,
+                        grantTitle: NSLocalizedString("onboarding.grant", bundle: .module, comment: ""),
+                        action: {
+                            if permission == .accessibility {
+                                if PermissionChecker.accessibilityIsGranted() {
+                                    refreshStatuses()
+                                } else {
+                                    PermissionChecker.requestAccessibilityAccess()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        refreshStatuses()
+                                    }
+                                }
                             }
-                        }
-                    },
-                    openSettingsAction: {
-                        PermissionChecker.openAccessibilitySettings()
-                    },
-                    theme: theme
-                )
+                        },
+                        openSettingsAction: {
+                            PermissionChecker.openSettings(for: permission)
+                        },
+                        theme: theme
+                    )
+                }
 
                 Spacer()
             }
@@ -51,6 +55,10 @@ struct PermissionsView: View {
     }
 
     private func refreshStatuses() {
-        accessibilityGranted = PermissionChecker.accessibilityIsGranted()
+        var statuses: [PermissionChecker.RequiredPermission: Bool] = [:]
+        for permission in PermissionChecker.RequiredPermission.allCases {
+            statuses[permission] = permission.status == .granted
+        }
+        grantedStatuses = statuses
     }
 }

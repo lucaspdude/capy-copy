@@ -39,6 +39,7 @@ final class QuickPickerWindowController {
             NSApp.activate(ignoringOtherApps: true)
             viewModel?.resetSelection()
             viewModel?.selectedTab = .all
+            viewModel?.refreshMissingPermissions()
             return
         }
 
@@ -47,6 +48,7 @@ final class QuickPickerWindowController {
             clipboardMonitor: clipboardMonitor,
             settingsStore: settingsStore
         )
+        viewModel.missingPermissions = PermissionChecker.missingRequiredPermissions()
         self.viewModel = viewModel
 
         let theme = settingsStore.selectedTheme.definition

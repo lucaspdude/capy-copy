@@ -4,7 +4,7 @@ import SwiftUI
 struct SettingsFormView: View {
     @ObservedObject var settingsStore: SettingsStore
 
-    @State private var accessibilityGranted = false
+    @State private var grantedStatuses: [PermissionChecker.RequiredPermission: Bool] = [:]
 
     private var theme: ThemeDefinition { settingsStore.selectedTheme.definition }
 
@@ -104,28 +104,32 @@ struct SettingsFormView: View {
                 // MARK: - Permissions
                 VStack(alignment: .leading, spacing: 12) {
                     SettingsSectionHeader(title: "Permissions", theme: theme)
-                    PermissionRow(
-                        icon: "cursorarrow.click",
-                        title: NSLocalizedString("onboarding.pasteTitle", bundle: .module, comment: ""),
-                        description: NSLocalizedString("onboarding.pasteDescription", bundle: .module, comment: ""),
-                        isGranted: accessibilityGranted,
-                        grantTitle: NSLocalizedString("onboarding.grant", bundle: .module, comment: ""),
-                        action: {
-                            if PermissionChecker.accessibilityIsGranted() {
-                                accessibilityGranted = true
-                            } else {
-                                PermissionChecker.requestAccessibilityAccess()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    refreshPermissionStatuses()
+                    ForEach(PermissionChecker.RequiredPermission.allCases) { permission in
+                        PermissionRow(
+                            icon: permission.iconName,
+                            title: NSLocalizedString(permission.displayKey, bundle: .module, comment: ""),
+                            description: NSLocalizedString(permission.descriptionKey, bundle: .module, comment: ""),
+                            isGranted: grantedStatuses[permission] ?? false,
+                            grantTitle: NSLocalizedString("onboarding.grant", bundle: .module, comment: ""),
+                            action: {
+                                if permission == .accessibility {
+                                    if PermissionChecker.accessibilityIsGranted() {
+                                        refreshPermissionStatuses()
+                                    } else {
+                                        PermissionChecker.requestAccessibilityAccess()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            refreshPermissionStatuses()
+                                        }
+                                    }
                                 }
-                            }
-                        },
-                        openSettingsAction: {
-                            PermissionChecker.openAccessibilitySettings()
-                        },
-                        theme: theme
-                    )
-                    Divider().overlay(theme.dividerColor)
+                            },
+                            openSettingsAction: {
+                                PermissionChecker.openSettings(for: permission)
+                            },
+                            theme: theme
+                        )
+                        Divider().overlay(theme.dividerColor)
+                    }
                 }
 
                 // MARK: - Version
@@ -155,7 +159,11 @@ struct SettingsFormView: View {
     }
 
     private func refreshPermissionStatuses() {
-        accessibilityGranted = PermissionChecker.accessibilityIsGranted()
+        var statuses: [PermissionChecker.RequiredPermission: Bool] = [:]
+        for permission in PermissionChecker.RequiredPermission.allCases {
+            statuses[permission] = permission.status == .granted
+        }
+        grantedStatuses = statuses
     }
 
     private var appVersion: String {
