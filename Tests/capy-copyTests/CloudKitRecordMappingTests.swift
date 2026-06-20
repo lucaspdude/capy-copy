@@ -70,4 +70,23 @@ final class CloudKitRecordMappingTests: XCTestCase {
         )
         XCTAssertNil(item.cloudKitRecord())
     }
+
+    func testAnalysisResultSyncedInRecord() throws {
+        let item = ClipItem(rawText: "hello", contentType: .text, result: "AI summary")
+        let record = try XCTUnwrap(item.cloudKitRecord())
+        XCTAssertEqual(record["result"] as? String, "AI summary")
+    }
+
+    func testAnalysisResultAppliedOnlyWhenAutoAnalyzeEnabled() throws {
+        let item = ClipItem(rawText: "hello", contentType: .text, result: "AI summary")
+        let record = try XCTUnwrap(item.cloudKitRecord())
+
+        UserDefaults.standard.set(true, forKey: "autoAnalyze")
+        let restoredEnabled = try ClipItem(cloudKitRecord: record)
+        XCTAssertEqual(restoredEnabled.result, "AI summary")
+
+        UserDefaults.standard.set(false, forKey: "autoAnalyze")
+        let restoredDisabled = try ClipItem(cloudKitRecord: record)
+        XCTAssertEqual(restoredDisabled.result, "")
+    }
 }

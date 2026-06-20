@@ -9,6 +9,7 @@ import CloudKit
 //   - contentType       → ["contentTypeData"] (JSON-encoded DetectedContent)
 //   - sourceDevices     → ["sourceDevicesData"] (JSON-encoded Set<DeviceSource>)
 //   - isFavorite        → ["isFavorite"]
+//   - result            → ["result"] (AI analysis; only applied locally when autoAnalyze is enabled)
 //
 // Intentionally local-only / recomputed (not sent to CloudKit):
 //   - errorMessage      (local-only UI state)
@@ -26,6 +27,7 @@ private enum CKKeys {
     static let contentTypeData = "contentTypeData"
     static let sourceDevicesData = "sourceDevicesData"
     static let isFavorite = "isFavorite"
+    static let result = "result"
 }
 
 private let zoneID = CKRecordZone.ID(zoneName: "HistoryZone")
@@ -43,6 +45,7 @@ extension ClipItem {
         record[CKKeys.contentTypeData] = try? JSONEncoder().encode(contentType)
         record[CKKeys.sourceDevicesData] = try? JSONEncoder().encode(sourceDevices)
         record[CKKeys.isFavorite] = isFavorite ? 1 : 0
+        record[CKKeys.result] = result
         record.encryptedValues[CKKeys.rawText] = rawText
         return record
     }
@@ -64,6 +67,13 @@ extension ClipItem {
             sourceDevices = []
         }
         let isFavorite = (record[CKKeys.isFavorite] as? Int) == 1
+        let analysisResult: String
+        if UserDefaults.standard.bool(forKey: "autoAnalyze"),
+           let result = record[CKKeys.result] as? String {
+            analysisResult = result
+        } else {
+            analysisResult = ""
+        }
 
         self.init(
             id: id,
@@ -72,6 +82,7 @@ extension ClipItem {
             timestamp: timestamp,
             contentHash: record.recordID.recordName,
             sourceDevices: sourceDevices,
+            result: analysisResult,
             isFavorite: isFavorite
         )
     }
