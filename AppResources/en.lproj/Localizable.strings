@@ -22,6 +22,9 @@
 /* Label for video content type. */
 "content.video" = "Video";
 
+/* Label for media content type (images, videos, PDFs). */
+"content.media" = "Media";
+
 /* Shown when the fm CLI fails to run. %@ is the underlying error message. */
 "error.fm.execution" = "Failed to run Foundation Models: %@";
 

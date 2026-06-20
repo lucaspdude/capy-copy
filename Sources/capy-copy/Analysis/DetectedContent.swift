@@ -8,6 +8,16 @@ enum DetectedContent: Codable, Equatable {
     case text
     case image
     case video(URL?)
+    case media
+
+    var isMedia: Bool {
+        switch self {
+        case .image, .video, .media:
+            return true
+        case .url, .code, .date, .address, .text:
+            return false
+        }
+    }
 
     var iconName: String {
         switch self {
@@ -18,6 +28,7 @@ enum DetectedContent: Codable, Equatable {
         case .text: return "text.alignleft"
         case .image: return "photo"
         case .video: return "film"
+        case .media: return "photo.stack"
         }
     }
 
@@ -37,6 +48,8 @@ enum DetectedContent: Codable, Equatable {
             return NSLocalizedString("content.image", tableName: nil, bundle: .module, comment: "Image content type")
         case .video:
             return NSLocalizedString("content.video", tableName: nil, bundle: .module, comment: "Video content type")
+        case .media:
+            return NSLocalizedString("content.media", tableName: nil, bundle: .module, comment: "Media content type")
         }
     }
 
@@ -67,6 +80,8 @@ enum DetectedContent: Codable, Equatable {
         case "video":
             let urlString = try container.decodeIfPresent(String.self, forKey: .value)
             self = .video(urlString.flatMap { URL(string: $0) })
+        case "media":
+            self = .media
         default:
             throw DecodingError.dataCorruptedError(forKey: .kind, in: container, debugDescription: "Unknown kind: \(kind)")
         }
@@ -93,6 +108,8 @@ enum DetectedContent: Codable, Equatable {
         case .video(let url):
             try container.encode("video", forKey: .kind)
             try container.encode(url?.absoluteString, forKey: .value)
+        case .media:
+            try container.encode("media", forKey: .kind)
         }
     }
 }

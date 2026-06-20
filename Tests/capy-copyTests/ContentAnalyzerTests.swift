@@ -51,10 +51,19 @@ final class ContentAnalyzerTests: XCTestCase {
         XCTAssertEqual(DetectedContent.date(Date()).iconName, "calendar")
         XCTAssertEqual(DetectedContent.address("").iconName, "mappin.and.ellipse")
         XCTAssertEqual(DetectedContent.text.iconName, "text.alignleft")
+        XCTAssertEqual(DetectedContent.media.iconName, "photo.stack")
+    }
+
+    func testMediaIdentification() {
+        XCTAssertTrue(DetectedContent.image.isMedia)
+        XCTAssertTrue(DetectedContent.video(nil).isMedia)
+        XCTAssertTrue(DetectedContent.media.isMedia)
+        XCTAssertFalse(DetectedContent.text.isMedia)
+        XCTAssertFalse(DetectedContent.date(Date()).isMedia)
     }
 
     func testDetectedContentCodableRoundTrip() throws {
-        let items: [DetectedContent] = [.url, .code, .date(Date(timeIntervalSince1970: 1000)), .address("Home"), .text]
+        let items: [DetectedContent] = [.url, .code, .date(Date(timeIntervalSince1970: 1000)), .address("Home"), .text, .image, .video(nil), .media]
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
 
