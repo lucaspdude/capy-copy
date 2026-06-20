@@ -213,3 +213,18 @@
 
 /* Label for media content type (images, videos, PDFs). */
 "content.media" = "Media";
+
+/* Disclaimer shown under the auto-analyze toggle. */
+"settings.aiDisclaimer" = "Analysis runs on-device using Apple Intelligence. Clipboard text is not sent to the cloud.";
+
+/* Toggle for analyzing plain text and dates. */
+"settings.analyzeTextAndDates" = "Plain text and dates";
+
+/* Toggle for analyzing URLs. */
+"settings.analyzeURLs" = "URLs";
+
+/* Toggle for analyzing code. */
+"settings.analyzeCode" = "Code";
+
+/* Footer explaining that automatic analysis sends text to a local model. */
+"settings.autoAnalyzeDescription" = "Analyze copied text locally to suggest actions.";

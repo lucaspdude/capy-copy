@@ -86,6 +86,50 @@ struct SettingsFormView: View {
                     Divider().overlay(theme.dividerColor)
                 }
 
+                // MARK: - Behavior
+                VStack(alignment: .leading, spacing: 12) {
+                    SettingsSectionHeader(title: NSLocalizedString("settings.behavior", bundle: .module, comment: ""), theme: theme)
+                    SettingsRow(
+                        icon: "sparkles",
+                        title: NSLocalizedString("settings.autoAnalyze", bundle: .module, comment: ""),
+                        description: NSLocalizedString("settings.autoAnalyzeDescription", bundle: .module, comment: ""),
+                        theme: theme
+                    ) {
+                        Toggle("", isOn: $settingsStore.autoAnalyze)
+                            .labelsHidden()
+                            .toggleStyle(.switch)
+                            .tint(theme.accentColor)
+                    }
+
+                    if settingsStore.autoAnalyze {
+                        Text(NSLocalizedString("settings.aiDisclaimer", bundle: .module, comment: ""))
+                            .font(theme.captionFont)
+                            .foregroundStyle(theme.secondaryTextColor)
+
+                        Toggle(
+                            NSLocalizedString("settings.analyzeTextAndDates", bundle: .module, comment: ""),
+                            isOn: $settingsStore.analyzeTextAndDates
+                        )
+                        .font(theme.bodyFont)
+                        .foregroundStyle(theme.primaryTextColor)
+
+                        Toggle(
+                            NSLocalizedString("settings.analyzeURLs", bundle: .module, comment: ""),
+                            isOn: $settingsStore.analyzeURLs
+                        )
+                        .font(theme.bodyFont)
+                        .foregroundStyle(theme.primaryTextColor)
+
+                        Toggle(
+                            NSLocalizedString("settings.analyzeCode", bundle: .module, comment: ""),
+                            isOn: $settingsStore.analyzeCode
+                        )
+                        .font(theme.bodyFont)
+                        .foregroundStyle(theme.primaryTextColor)
+                    }
+                    Divider().overlay(theme.dividerColor)
+                }
+
                 // MARK: - Shortcuts
                 VStack(alignment: .leading, spacing: 12) {
                     SettingsSectionHeader(title: "Shortcuts", theme: theme)
