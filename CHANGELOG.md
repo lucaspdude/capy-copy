@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.0](https://github.com/lucaspdude/capy-copy/compare/v0.1.3...v0.2.0) (2026-06-20)
+
+
+### Features
+
+* **ui:** batch UI and privacy improvements ([f16b393](https://github.com/lucaspdude/capy-copy/commit/f16b3938aa9555b9d1f8d83b6686ccd0451798c2))
+* **ui:** implement six UI/privacy improvements ([f704386](https://github.com/lucaspdude/capy-copy/commit/f704386ecfbd82d7822a6b5c37eedd74a219f367))
+* **ui:** in-popover permission gate with banner ([4c4be8a](https://github.com/lucaspdude/capy-copy/commit/4c4be8abfd10e02fb9059a7d0a25544f87627a15))
+
+
+### Bug Fixes
+
+* **ui:** apply current theme to existing popover on each show ([7931e75](https://github.com/lucaspdude/capy-copy/commit/7931e759e494df991c1dc56a5f8e5b00df96b7c1))
+* **ui:** device scope selector is wider than its content ([9f06616](https://github.com/lucaspdude/capy-copy/commit/9f0661644c4030fcb0a2cf599112bc35a2eead55)), closes [#9](https://github.com/lucaspdude/capy-copy/issues/9)
+* **ui:** hide vertical scrollbar in Quick Picker while keeping scroll ([02d8905](https://github.com/lucaspdude/capy-copy/commit/02d8905b83d9920e512ab3386ba74da6dbf30222)), closes [#10](https://github.com/lucaspdude/capy-copy/issues/10)
+* **ui:** reduce sidebar icon and label sizes ([f942061](https://github.com/lucaspdude/capy-copy/commit/f94206166e80ed6478ca06572bf50e4fa42424d7))
+* **ui:** remove background/border from clip card action buttons ([b7068d8](https://github.com/lucaspdude/capy-copy/commit/b7068d86a4f06d4f78e0df9167a632b5a0d2b73d))
+* **ui:** sidebar icon-only tabs, action spacing, terminal popover radius ([3001c38](https://github.com/lucaspdude/capy-copy/commit/3001c384557de46fe9113732078a8e9e2293fd22))
+* **ui:** use ScrollView showsIndicators initializer to hide scrollbar ([57adcd8](https://github.com/lucaspdude/capy-copy/commit/57adcd8091e6bf8edc599b4d23769d39affb7a0b))
+
 ## [0.1.3](https://github.com/lucaspdude/capy-copy/compare/v0.1.2...v0.1.3) (2026-06-17)
 
 
