@@ -228,3 +228,15 @@
 
 /* Footer explaining that automatic analysis sends text to a local model. */
 "settings.autoAnalyzeDescription" = "Analyze copied text locally to suggest actions.";
+
+/* Button to add a detected date to Calendar. */
+"action.addToCalendar" = "Add to Calendar";
+
+/* Button to create a reminder from copied text. */
+"action.addToReminders" = "Add to Reminders";
+
+/* Button to open a location in Google Maps. */
+"action.openInGoogleMaps" = "Open in Google Maps";
+
+/* Button to add text to the Notes app. */
+"action.addToNotes" = "Add to Notes";
