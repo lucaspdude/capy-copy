@@ -10,15 +10,19 @@ final class MenuBarController: NSObject {
     private let historyStore: HistoryStore
     private let clipboardMonitor: ClipboardMonitor
     private let settingsStore: SettingsStore
+    private let modelClient: FoundationModelClient?
+    private var analysisQueue: Task<Void, Never>?
     private var shortcutCancellable: AnyCancellable?
     private var previousFrontmostApplication: NSRunningApplication?
 
     init(historyStore: HistoryStore,
          clipboardMonitor: ClipboardMonitor,
-         settingsStore: SettingsStore) {
+         settingsStore: SettingsStore,
+         modelClient: FoundationModelClient?) {
         self.historyStore = historyStore
         self.clipboardMonitor = clipboardMonitor
         self.settingsStore = settingsStore
+        self.modelClient = modelClient
 
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         self.hotKeyManager = HotKeyManager()
@@ -113,6 +117,20 @@ final class MenuBarController: NSObject {
         guard settingsStore.autoAnalyze else { return }
         guard !historyStore.items.contains(where: { $0.rawText == text }) else { return }
 
-        _ = historyStore.add(rawText: text, type: .text)
+        let contentType = ContentAnalyzer.analyze(text)
+        guard settingsStore.shouldAnalyze(contentType) else { return }
+
+        let item = historyStore.add(rawText: text, type: contentType)
+
+        analysisQueue = Task { [weak self, previous = analysisQueue] in
+            _ = await previous?.result
+            guard let self, let modelClient = self.modelClient else { return }
+            do {
+                let result = try await modelClient.analyze(text, contentType: contentType)
+                await self.historyStore.updateResult(id: item.id, result: result.explanation)
+            } catch {
+                await self.historyStore.updateError(id: item.id, message: error.localizedDescription)
+            }
+        }
     }
 }

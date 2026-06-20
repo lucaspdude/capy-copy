@@ -52,10 +52,15 @@ final class AppAssembly {
             settingsStore: settings
         )
 
+        let modelClient: FoundationModelClient? = FoundationModelCapability.isSupported
+            ? AppleIntelligenceClient()
+            : nil
+
         let controller = MenuBarController(
             historyStore: self.historyStore,
             clipboardMonitor: monitor,
-            settingsStore: settings
+            settingsStore: settings,
+            modelClient: modelClient
         )
         self.menuBarController = controller
 

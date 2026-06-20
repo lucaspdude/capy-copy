@@ -210,3 +210,6 @@
 "permissions.banner.missing" = "使用 Capy Copy 需要“%@”权限。";
 "permissions.banner.more" = "还有 %d 项";
 "permissions.banner.action" = "打开设置";
+
+/* Label for media content type (images, videos, PDFs). */
+"content.media" = "Media";

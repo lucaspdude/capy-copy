@@ -210,3 +210,6 @@
 "permissions.banner.missing" = "A permissão “%@” é necessária para usar o Capy Copy.";
 "permissions.banner.more" = "+%d a mais";
 "permissions.banner.action" = "Abrir Ajustes";
+
+/* Label for media content type (images, videos, PDFs). */
+"content.media" = "Media";

@@ -210,3 +210,6 @@
 "permissions.banner.missing" = "Capy Copy を使用するには「%@」の権限が必要です。";
 "permissions.banner.more" = "他 %d 件";
 "permissions.banner.action" = "設定を開く";
+
+/* Label for media content type (images, videos, PDFs). */
+"content.media" = "Media";
