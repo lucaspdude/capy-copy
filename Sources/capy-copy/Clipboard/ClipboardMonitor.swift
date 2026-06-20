@@ -10,6 +10,7 @@ final class ClipboardMonitor: ObservableObject {
     var onNewContent: ((String) -> Void)?
     var onNewImage: ((Data) -> Void)?
     var onNewVideo: ((URL) -> Void)?
+    var onNewMedia: ((DetectedContent) -> Void)?
 
     private var timer: Timer?
     private var lastChangeCount = NSPasteboard.general.changeCount
@@ -47,9 +48,20 @@ final class ClipboardMonitor: ObservableObject {
         }
 
         if let fileURLs = pasteboard.readObjects(forClasses: [NSURL.self]) as? [URL],
-           let fileURL = fileURLs.first,
-           fileURL.isVideo {
-            onNewVideo?(fileURL)
+           let fileURL = fileURLs.first {
+            if fileURL.isVideo {
+                onNewVideo?(fileURL)
+                return
+            }
+            if fileURL.pathExtension.lowercased() == "pdf" {
+                onNewMedia?(.media)
+                return
+            }
+        }
+
+        if let types = pasteboard.types as? [String],
+           types.contains("com.adobe.pdf") {
+            onNewMedia?(.media)
             return
         }
 

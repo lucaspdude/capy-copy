@@ -71,6 +71,10 @@ final class AppAssembly {
             self?.historyStore.addVideo(url: url)
         }
 
+        monitor.onNewMedia = { [weak self] contentType in
+            self?.historyStore.add(rawText: "", type: contentType)
+        }
+
         monitor.start()
 
         if settings.syncEnabled {
