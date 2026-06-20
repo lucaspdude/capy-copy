@@ -58,32 +58,14 @@
 /* Button label after the original clipboard text has been copied. */
 "card.copiedOriginal" = "Original Copiado";
 
-/* Button to create a calendar event from a detected date. */
-"action.addToCalendar" = "Adicionar ao Calendário";
-
-/* Button to create a reminder from a detected date. */
-"action.createReminder" = "Criar Lembrete";
-
-/* Status shown after a calendar event has been created from a detected date. */
-"action.createdCalendar" = "Adicionado ao Calendário";
-
-/* Status shown after a reminder has been created from a detected date. */
-"action.createdReminder" = "Lembrete Criado";
-
 /* Button to open an address in the chosen maps app. %@ is the maps provider name. */
-"action.openInMaps" = "Abrir no %@";
+"action.openInMaps" = "Abrir no Mapas";
 
 /* Button to clear the analysis history. */
 "footer.clearHistory" = "Limpar Histórico";
 
 /* Title of the settings sheet. */
 "settings.title" = "Ajustes";
-
-/* Section title for maps settings. */
-"settings.maps" = "Mapas";
-
-/* Label for the default maps app picker. */
-"settings.defaultMapsApp" = "App de Mapas Padrão";
 
 /* Section title for behavior settings. */
 "settings.behavior" = "Comportamento";
@@ -147,25 +129,13 @@
 "onboarding.title" = "Bem-vindo ao Capy Copy";
 
 /* Subtitle explaining why permissions are needed. */
-"onboarding.subtitle" = "Algumas permissões são necessárias para colar e criar eventos no calendário.";
+"onboarding.subtitle" = "Uma permissão é necessária para colar em outros apps.";
 
 /* Title for the paste permission step. */
 "onboarding.pasteTitle" = "Colar em apps";
 
 /* Description for the paste permission step. */
 "onboarding.pasteDescription" = "Permite que o Capy Copy cole itens selecionados no app ativo.";
-
-/* Title for the calendar permission step. */
-"onboarding.calendarTitle" = "Calendário";
-
-/* Description for the calendar permission step. */
-"onboarding.calendarDescription" = "Crie eventos a partir de datas encontradas na área de transferência.";
-
-/* Title for the reminders permission step. */
-"onboarding.remindersTitle" = "Lembretes";
-
-/* Description for the reminders permission step. */
-"onboarding.remindersDescription" = "Crie lembretes a partir de datas encontradas na área de transferência.";
 
 /* Button to request a permission. */
 "onboarding.grant" = "Permitir";
@@ -187,9 +157,6 @@
 
 /* Theme name for the terminal style. */
 "theme.terminal" = "Terminal";
-
-/* Theme name for the Claude Code style. */
-"theme.claudeCode" = "Claude Code";
 
 /* All items tab title in the picker. */
 "picker.tab.all" = "All";
@@ -238,3 +205,8 @@
 
 /* Help text for the device scope filter menu. */
 "picker.deviceScopeHelp" = "Filter by Mac";
+
+/* Permission banner shown inside the popover when a required permission is missing. */
+"permissions.banner.missing" = "A permissão “%@” é necessária para usar o Capy Copy.";
+"permissions.banner.more" = "+%d a mais";
+"permissions.banner.action" = "Abrir Ajustes";

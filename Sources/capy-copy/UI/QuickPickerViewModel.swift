@@ -14,6 +14,7 @@ final class QuickPickerViewModel: ObservableObject {
     @Published var selectedDeviceScope: DeviceScope = .all
     @Published var showSettings: Bool = false
     @Published var selectedTab: PickerTab = .all
+    @Published var missingPermissions: [PermissionChecker.RequiredPermission] = []
 
     let historyStore: HistoryStore
     let clipboardMonitor: ClipboardMonitor
@@ -40,6 +41,16 @@ final class QuickPickerViewModel: ObservableObject {
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
+    }
+
+    /// Recalculates which required permissions are currently denied so the
+    /// in-popover banner can react to changes (e.g. user revokes Accessibility
+    /// in System Settings without closing the popover).
+    func refreshMissingPermissions() {
+        let missing = PermissionChecker.missingRequiredPermissions()
+        if missing != missingPermissions {
+            missingPermissions = missing
+        }
     }
 
     var filteredItems: [ClipItem] {

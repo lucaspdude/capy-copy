@@ -5,7 +5,6 @@ import AppKit
 enum AppTheme: String, CaseIterable, Identifiable, Codable {
     case liquidGlass = "liquidGlass"
     case terminal = "terminal"
-    case claudeCode = "claudeCode"
 
     var id: String { rawValue }
 
@@ -15,8 +14,6 @@ enum AppTheme: String, CaseIterable, Identifiable, Codable {
             return NSLocalizedString("theme.liquidGlass", bundle: .module, comment: "")
         case .terminal:
             return NSLocalizedString("theme.terminal", bundle: .module, comment: "")
-        case .claudeCode:
-            return NSLocalizedString("theme.claudeCode", bundle: .module, comment: "")
         }
     }
 }
@@ -33,8 +30,6 @@ struct ThemeDefinition {
             return Color.clear
         case .terminal:
             return Color(hex: "#0d0d0d")
-        case .claudeCode:
-            return Color(hex: "#16161e")
         }
     }
 
@@ -42,7 +37,7 @@ struct ThemeDefinition {
         switch name {
         case .liquidGlass:
             return .popover
-        case .terminal, .claudeCode:
+        case .terminal:
             return .contentBackground
         }
     }
@@ -53,8 +48,6 @@ struct ThemeDefinition {
             return Color(nsColor: .controlBackgroundColor).opacity(0.55)
         case .terminal:
             return Color(hex: "#141414")
-        case .claudeCode:
-            return Color(hex: "#1e1e2e")
         }
     }
 
@@ -73,8 +66,6 @@ struct ThemeDefinition {
             return Color(nsColor: .textBackgroundColor).opacity(0.7)
         case .terminal:
             return Color(hex: "#1a1a1a")
-        case .claudeCode:
-            return Color(hex: "#1e1e2e")
         }
     }
 
@@ -86,8 +77,6 @@ struct ThemeDefinition {
             return Color(nsColor: .labelColor)
         case .terminal:
             return Color(hex: "#e6e6e6")
-        case .claudeCode:
-            return Color(hex: "#e8e8ed")
         }
     }
 
@@ -97,8 +86,6 @@ struct ThemeDefinition {
             return Color(nsColor: .secondaryLabelColor)
         case .terminal:
             return Color(hex: "#8a9a8a")
-        case .claudeCode:
-            return Color(hex: "#a0a0b0")
         }
     }
 
@@ -108,8 +95,6 @@ struct ThemeDefinition {
             return Color(nsColor: .tertiaryLabelColor)
         case .terminal:
             return Color(hex: "#5a6a5a")
-        case .claudeCode:
-            return Color(hex: "#6e6e80")
         }
     }
 
@@ -121,8 +106,6 @@ struct ThemeDefinition {
             return Color(nsColor: .controlAccentColor)
         case .terminal:
             return Color(hex: "#33ff00")
-        case .claudeCode:
-            return Color(hex: "#7c7cff")
         }
     }
 
@@ -132,8 +115,6 @@ struct ThemeDefinition {
             return Color(nsColor: .separatorColor)
         case .terminal:
             return Color(hex: "#2a2a2a")
-        case .claudeCode:
-            return Color(hex: "#2a2a3e")
         }
     }
 
@@ -141,7 +122,7 @@ struct ThemeDefinition {
 
     var bodyFont: Font {
         switch name {
-        case .liquidGlass, .claudeCode:
+        case .liquidGlass:
             return .system(size: 15, weight: .regular)
         case .terminal:
             return Font.custom("Iosevka", size: 15)
@@ -151,7 +132,7 @@ struct ThemeDefinition {
 
     var captionFont: Font {
         switch name {
-        case .liquidGlass, .claudeCode:
+        case .liquidGlass:
             return .system(size: 13, weight: .medium)
         case .terminal:
             return Font.custom("Iosevka", size: 13)
@@ -161,7 +142,7 @@ struct ThemeDefinition {
 
     var headlineFont: Font {
         switch name {
-        case .liquidGlass, .claudeCode:
+        case .liquidGlass:
             return .system(size: 17, weight: .semibold)
         case .terminal:
             return Font.custom("Iosevka", size: 17)
@@ -176,9 +157,7 @@ struct ThemeDefinition {
         case .liquidGlass:
             return 24
         case .terminal:
-            return 8
-        case .claudeCode:
-            return 16
+            return 18
         }
     }
 
@@ -188,8 +167,6 @@ struct ThemeDefinition {
             return 16
         case .terminal:
             return 6
-        case .claudeCode:
-            return 12
         }
     }
 
@@ -199,8 +176,15 @@ struct ThemeDefinition {
             return 8
         case .terminal:
             return 4
-        case .claudeCode:
-            return 8
+        }
+    }
+
+    var tabButtonCornerRadius: CGFloat {
+        switch name {
+        case .liquidGlass:
+            return 14
+        case .terminal:
+            return 6
         }
     }
 
@@ -210,8 +194,6 @@ struct ThemeDefinition {
             return 18
         case .terminal:
             return 6
-        case .claudeCode:
-            return 10
         }
     }
 
@@ -221,8 +203,6 @@ struct ThemeDefinition {
             return Color.black.opacity(0.35)
         case .terminal:
             return Color.black.opacity(0.5)
-        case .claudeCode:
-            return Color.black.opacity(0.4)
         }
     }
 
@@ -232,8 +212,6 @@ struct ThemeDefinition {
             return 40
         case .terminal:
             return 12
-        case .claudeCode:
-            return 24
         }
     }
 
@@ -243,8 +221,6 @@ struct ThemeDefinition {
             return Color.white.opacity(0.12)
         case .terminal:
             return Color(hex: "#2a2a2a")
-        case .claudeCode:
-            return Color(hex: "#2a2a3e")
         }
     }
 
@@ -254,8 +230,15 @@ struct ThemeDefinition {
             return 0.5
         case .terminal:
             return 1
-        case .claudeCode:
-            return 1
+        }
+    }
+
+    var warningColor: Color {
+        switch name {
+        case .liquidGlass:
+            return Color(hex: "#ff9f0a")
+        case .terminal:
+            return Color(hex: "#ffb454")
         }
     }
 }

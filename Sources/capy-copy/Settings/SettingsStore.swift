@@ -71,6 +71,7 @@ final class SettingsStore: ObservableObject {
            let provider = MapsProvider(rawValue: raw) {
             self.mapsProvider = provider
         } else {
+            // Legacy Google Maps value is silently migrated to Apple Maps.
             self.mapsProvider = .appleMaps
         }
 

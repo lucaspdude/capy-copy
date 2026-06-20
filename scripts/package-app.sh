@@ -87,12 +87,6 @@ cat > "$APP_NAME/Contents/Info.plist" <<EOF
     <string>© 2026 Capy Copy. All rights reserved.</string>
     <key>NSAccessibilityUsageDescription</key>
     <string>Capy Copy uses Accessibility to paste text into the app you are working in.</string>
-    <key>NSAppleEventsUsageDescription</key>
-    <string>Capy Copy needs to open Maps and Calendar for detected addresses and dates.</string>
-    <key>NSCalendarsUsageDescription</key>
-    <string>Capy Copy can create calendar events from copied dates.</string>
-    <key>NSRemindersUsageDescription</key>
-    <string>Capy Copy can create reminders from copied dates.</string>
 </dict>
 </plist>
 EOF
