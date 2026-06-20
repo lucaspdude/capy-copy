@@ -59,4 +59,26 @@ final class SettingsStoreTests: XCTestCase {
         store.maxHistoryItems = 42
         XCTAssertEqual(store.maxHistoryItems, 42)
     }
+
+    // MARK: - AI analysis toggles
+
+    func testAnalyzeDefaults() {
+        defaults.removeObject(forKey: "autoAnalyze")
+        defaults.removeObject(forKey: "analyzeTextAndDates")
+        defaults.removeObject(forKey: "analyzeURLs")
+        defaults.removeObject(forKey: "analyzeCode")
+
+        let store = SettingsStore()
+        XCTAssertFalse(store.autoAnalyze)
+        XCTAssertTrue(store.analyzeTextAndDates)
+        XCTAssertFalse(store.analyzeURLs)
+        XCTAssertFalse(store.analyzeCode)
+
+        XCTAssertFalse(store.shouldAnalyze(.text))
+        store.autoAnalyze = true
+        XCTAssertTrue(store.shouldAnalyze(.text))
+        XCTAssertFalse(store.shouldAnalyze(.url))
+        XCTAssertFalse(store.shouldAnalyze(.code))
+        XCTAssertFalse(store.shouldAnalyze(.image))
+    }
 }

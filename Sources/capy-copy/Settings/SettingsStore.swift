@@ -16,6 +16,18 @@ final class SettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(autoAnalyze, forKey: SettingsKey.autoAnalyze) }
     }
 
+    @Published var analyzeTextAndDates: Bool {
+        didSet { UserDefaults.standard.set(analyzeTextAndDates, forKey: SettingsKey.analyzeTextAndDates) }
+    }
+
+    @Published var analyzeURLs: Bool {
+        didSet { UserDefaults.standard.set(analyzeURLs, forKey: SettingsKey.analyzeURLs) }
+    }
+
+    @Published var analyzeCode: Bool {
+        didSet { UserDefaults.standard.set(analyzeCode, forKey: SettingsKey.analyzeCode) }
+    }
+
     @Published var maxHistoryItems: Int {
         didSet {
             let clamped = Self.clamp(maxHistoryItems)
@@ -79,7 +91,10 @@ final class SettingsStore: ObservableObject {
         // UserDefaults value so a user upgrading from a previous build doesn't have
         // a stale entry lingering in their defaults plist.
         _ = defaults.object(forKey: SettingsKey.showNotifications)
-        self.autoAnalyze = defaults.object(forKey: SettingsKey.autoAnalyze) as? Bool ?? true
+        self.autoAnalyze = defaults.object(forKey: SettingsKey.autoAnalyze) as? Bool ?? false
+        self.analyzeTextAndDates = defaults.object(forKey: SettingsKey.analyzeTextAndDates) as? Bool ?? true
+        self.analyzeURLs = defaults.object(forKey: SettingsKey.analyzeURLs) as? Bool ?? false
+        self.analyzeCode = defaults.object(forKey: SettingsKey.analyzeCode) as? Bool ?? false
         self.maxHistoryItems = Self.clamp(
             defaults.object(forKey: SettingsKey.maxHistoryItems) as? Int ?? 10
         )
@@ -102,10 +117,29 @@ final class SettingsStore: ObservableObject {
     }
 }
 
+extension SettingsStore {
+    func shouldAnalyze(_ contentType: DetectedContent) -> Bool {
+        guard autoAnalyze else { return false }
+        switch contentType {
+        case .text, .date, .address:
+            return analyzeTextAndDates
+        case .url:
+            return analyzeURLs
+        case .code:
+            return analyzeCode
+        case .image, .video, .media:
+            return false
+        }
+    }
+}
+
 private enum SettingsKey {
     static let mapsProvider = "mapsProvider"
     static let showNotifications = "showNotifications"
     static let autoAnalyze = "autoAnalyze"
+    static let analyzeTextAndDates = "analyzeTextAndDates"
+    static let analyzeURLs = "analyzeURLs"
+    static let analyzeCode = "analyzeCode"
     static let maxHistoryItems = "maxHistoryItems"
     static let shortcut = "shortcut"
     static let hasCompletedOnboarding = "hasCompletedOnboarding"
