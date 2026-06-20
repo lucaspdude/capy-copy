@@ -17,11 +17,16 @@ Capy Copy is a lightweight clipboard history manager for macOS. It lives in your
 
 ## What it does not do
 
-- It does not use AI or large language models.
 - It does not fetch web pages or summarize URLs.
 - It does not send clipboard content to the cloud.
 - It does not show notifications in version 1.0.0.
 - It does not make network calls.
+
+## Optional on-device analysis
+
+- Capy Copy can optionally analyze copied text using Apple Intelligence.
+- This feature is **disabled by default** and must be turned on in Settings.
+- When enabled, analysis runs entirely on your Mac; no clipboard text leaves the device.
 
 ## Requirements
 

@@ -9,7 +9,7 @@ Capy Copy is a menu-bar clipboard history manager for macOS 14+. This document d
 
 - Clipboard content is stored **locally**, encrypted with a per-device key in the macOS Keychain.
 - Capy Copy makes **no network calls** and does not fetch web pages.
-- It does **not** use AI, large language models, or the Apple Foundation Models CLI.
+- Optional on-device analysis with Apple Intelligence is **disabled by default**. When enabled, no clipboard text leaves the device.
 - It does **not** show notifications in version 1.0.0.
 - Only device identity and preferences can optionally sync via CloudKit. **Clipboard content is never uploaded.**
 - The app is distributed outside the Mac App Store and therefore **does not use the App Sandbox**. This is required so it can paste into other applications using a synthesized Cmd+V keystroke.
@@ -24,12 +24,22 @@ Capy Copy is a menu-bar clipboard history manager for macOS 14+. This document d
 
 ## What the app does not do
 
-- **No AI or large language models.** 1.0.0 does not call any on-device or cloud model.
-- **No subprocesses for analysis.** 1.0.0 does not spawn external tools to process clipboard content.
-- **No HTTP / HTTPS.** 1.0.0 does not import `URLSession` for fetching remote content.
-- **No notifications.** 1.0.0 does not import `UserNotifications`. Banner notifications are a possible future feature.
-- **No cross-device clipboard content sync.** Only device identity and preferences cross the CloudKit boundary.
+- **No cloud AI or large language models.** Capy Copy does not send clipboard text to any cloud service for analysis.
+- **No subprocesses for analysis.** Capy Copy does not spawn external tools to process clipboard content.
+- **No HTTP / HTTPS.** Capy Copy does not import `URLSession` for fetching remote content.
+- **No notifications.** Capy Copy does not import `UserNotifications`. Banner notifications are a possible future feature.
+- **No cross-device clipboard content sync.** Only device identity, preferences, and (when AI analysis is enabled on both sides) analysis results cross the CloudKit boundary.
 - **No analytics or telemetry.** Nothing in the app phones home.
+
+## Optional on-device analysis
+
+When you enable **Auto-analyze clipboard** in Settings:
+
+- Copied text is analyzed by Apple Intelligence **on your Mac**.
+- No clipboard text is sent to the cloud or to any third-party service.
+- Analysis is gated by per-category toggles (plain text/dates, URLs, code).
+- Analysis results sync via CloudKit only when the receiving Mac also has auto-analyze enabled.
+- The feature requires macOS 15+ and Apple Silicon; it is unavailable on older hardware.
 
 ## Trust boundaries
 
@@ -49,7 +59,9 @@ The HMAC key is `HKDF-SHA256(primaryKey, info: "capy-copy.history.hmac.v1")`. Bo
 
 ### Persistence → iCloud
 
-CloudKit private database contains `DeviceIdentity` and `SettingsStore` preferences. No `ClipItem` row is written to CloudKit. The encryption key does not sync.
+CloudKit private database contains `DeviceIdentity` and `SettingsStore` preferences. No raw `ClipItem` row is written to CloudKit. The encryption key does not sync.
+
+If AI analysis is enabled, a small amount of derived metadata (the analysis result) may sync via CloudKit, but only when the receiving Mac also has auto-analyze enabled. Raw clipboard text never crosses the CloudKit boundary.
 
 ### Paste → target app
 
