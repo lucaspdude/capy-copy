@@ -233,3 +233,9 @@
 
 /* Button to add text to the Notes app. */
 "action.addToNotes" = "Add to Notes";
+
+/* Title of the AI actions popover. */
+"ai.title" = "AI Actions";
+
+/* Message shown when no AI actions are available for a clip. */
+"ai.noActions" = "No actions available for this item.";
