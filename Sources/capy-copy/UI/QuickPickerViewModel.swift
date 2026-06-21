@@ -146,6 +146,10 @@ final class QuickPickerViewModel: ObservableObject {
     func toggleFavorite(_ item: ClipItem) {
         historyStore.toggleFavorite(id: item.id)
     }
+
+    func handleSuggestedAction(_ action: SuggestedAction) {
+        ActionDispatcher.shared.handle(action)
+    }
 }
 
 private extension Sequence {

@@ -5,9 +5,13 @@ struct AIActionsPopover: View {
     let theme: ThemeDefinition
     let onAction: (SuggestedAction) -> Void
 
+    @State private var permissionRefresh = UUID()
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             header
+
+            missingPermissionGates
 
             if item.isLoading {
                 loadingView
@@ -19,6 +23,32 @@ struct AIActionsPopover: View {
         }
         .padding(16)
         .frame(width: 280)
+        .id(permissionRefresh)
+    }
+
+    private var actions: [SuggestedAction] {
+        SuggestedAction.actions(for: item.contentType, analysis: item.result)
+    }
+
+    private var requiredPermissions: [SystemPermission] {
+        var result: [SystemPermission] = []
+        let needsCalendar = actions.contains { if case .addToCalendar = $0 { return true } else { return false } }
+        let needsReminders = actions.contains { if case .addToReminder = $0 { return true } else { return false } }
+        if needsCalendar { result.append(.calendar) }
+        if needsReminders { result.append(.reminders) }
+        return result
+    }
+
+    private var missingPermissionGates: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            ForEach(requiredPermissions.filter { $0.status != .authorized }) { permission in
+                PermissionGateView(
+                    permission: permission,
+                    theme: theme,
+                    onGrant: { permissionRefresh = UUID() }
+                )
+            }
+        }
     }
 
     private var header: some View {
@@ -49,8 +79,7 @@ struct AIActionsPopover: View {
     }
 
     private var actionsList: some View {
-        let actions = SuggestedAction.actions(for: item.contentType, analysis: item.result)
-        return VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             if actions.isEmpty {
                 Text(NSLocalizedString("ai.noActions", bundle: .module, comment: ""))
                     .font(theme.captionFont)

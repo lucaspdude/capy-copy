@@ -246,3 +246,13 @@
 
 /* Message shown when no AI actions are available for a clip. */
 "ai.noActions" = "No actions available for this item.";
+
+"card.aiActions" = "AI Actions";
+"permission.calendar.title" = "Calendar";
+"permission.calendar.description" = "Allows adding events to Calendar.";
+"permission.reminders.title" = "Reminders";
+"permission.reminders.description" = "Allows creating reminders.";
+"permission.gate.grant" = "Grant";
+"permission.gate.granted" = "Granted";
+"permission.gate.openSettings" = "Open Settings";
+

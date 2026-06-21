@@ -206,6 +206,10 @@ final class QuickPickerWindowController {
         case 53: // escape
             hide()
             return true
+        case 49: // space
+            guard let selectedID = viewModel.selectedItemID else { return false }
+            NotificationCenter.default.post(name: .openAIActions, object: selectedID)
+            return true
         default:
             return false
         }

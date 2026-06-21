@@ -10,9 +10,15 @@ struct ClipCard: View {
     var onSelect: (() -> Void)?
     var onCopy: (() -> Void)?
     var onToggleFavorite: (() -> Void)?
+    var onAIAction: ((SuggestedAction) -> Void)?
 
     @State private var copied = false
     @State private var isHovered = false
+    @State private var showAIPopover = false
+
+    private var aiEnabled: Bool {
+        settingsStore.autoAnalyze && FoundationModelCapability.isSupported
+    }
 
     private var theme: ThemeDefinition { settingsStore.selectedTheme.definition }
 
@@ -60,6 +66,12 @@ struct ClipCard: View {
         .onTapGesture(count: 2) {
             onCopy?()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .openAIActions)) { notification in
+            guard let itemID = notification.object as? ClipItem.ID,
+                  itemID == item.id,
+                  aiEnabled else { return }
+            showAIPopover = true
+        }
     }
 
     @ViewBuilder
@@ -96,6 +108,26 @@ struct ClipCard: View {
             Text(timestampText)
                 .font(theme.captionFont)
                 .foregroundStyle(theme.tertiaryTextColor)
+
+            if aiEnabled {
+                iconButton(
+                    icon: "sparkles",
+                    active: false,
+                    help: NSLocalizedString("card.aiActions", bundle: .module, comment: "")
+                ) {
+                    showAIPopover.toggle()
+                }
+                .popover(isPresented: $showAIPopover) {
+                    AIActionsPopover(
+                        item: item,
+                        theme: theme,
+                        onAction: { action in
+                            showAIPopover = false
+                            onAIAction?(action)
+                        }
+                    )
+                }
+            }
 
             iconButton(
                 icon: item.isFavorite ? "star.fill" : "star",

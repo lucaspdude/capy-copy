@@ -239,3 +239,28 @@
 
 /* Message shown when no AI actions are available for a clip. */
 "ai.noActions" = "No actions available for this item.";
+
+/* Button help to open AI actions for a history item. */
+"card.aiActions" = "AI Actions";
+
+/* Title of the permission gate for Calendar access. */
+"permission.calendar.title" = "Calendar";
+
+/* Description of the permission gate for Calendar access. */
+"permission.calendar.description" = "Allows adding events to Calendar.";
+
+/* Title of the permission gate for Reminders access. */
+"permission.reminders.title" = "Reminders";
+
+/* Description of the permission gate for Reminders access. */
+"permission.reminders.description" = "Allows creating reminders.";
+
+/* Button to grant a permission from the permission gate. */
+"permission.gate.grant" = "Grant";
+
+/* Status shown when a permission has been granted in the permission gate. */
+"permission.gate.granted" = "Granted";
+
+/* Button to open System Settings from the permission gate. */
+"permission.gate.openSettings" = "Open Settings";
+

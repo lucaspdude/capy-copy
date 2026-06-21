@@ -167,6 +167,9 @@ struct QuickPickerView: View {
                                     },
                                     onToggleFavorite: {
                                         viewModel.toggleFavorite(item)
+                                    },
+                                    onAIAction: { action in
+                                        viewModel.handleSuggestedAction(action)
                                     }
                                 )
                                 .id(item.id)

@@ -18,7 +18,8 @@ let package = Package(
                 .linkedFramework("Carbon"),
                 .linkedFramework("SystemConfiguration"),
                 .linkedFramework("QuickLookThumbnailing"),
-                .linkedFramework("CloudKit")
+                .linkedFramework("CloudKit"),
+                .linkedFramework("EventKit")
             ]
         ),
         .testTarget(

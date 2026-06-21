@@ -15,4 +15,11 @@ final class MapsProviderTests: XCTestCase {
         XCTAssertEqual(url?.scheme, "https")
         XCTAssertEqual(url?.query, "q=a%26b%3Dc%23d")
     }
+
+    func testGoogleMapsURL() {
+        let url = MapsProvider.googleMaps.mapsURL(for: "1600 Amphitheatre Parkway")
+        XCTAssertEqual(url?.scheme, "https")
+        XCTAssertEqual(url?.host, "www.google.com")
+        XCTAssertTrue(url?.query?.contains("1600%20Amphitheatre%20Parkway") == true)
+    }
 }

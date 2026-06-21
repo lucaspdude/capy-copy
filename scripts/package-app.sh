@@ -19,8 +19,9 @@ DEVELOPER_ID="${DEVELOPER_ID:-}"
 
 cd "$PROJECT_DIR"
 
-# Version handling
-TAG="${1:-v1.0.0}"
+# Version handling: default to the version stored in version.txt.
+VERSION_FROM_FILE="$(tr -d '[:space:]' < version.txt)"
+TAG="${1:-v${VERSION_FROM_FILE}}"
 if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "ERROR: Tag must match vMAJOR.MINOR.PATCH (e.g., v1.2.3). Got: $TAG" >&2
   exit 1
